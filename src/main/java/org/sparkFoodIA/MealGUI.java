@@ -56,7 +56,7 @@ public class MealGUI extends JFrame {
                     try {
                         previewImage = ImageIO.read(new URL(meal.getImageUrl()));
                     } catch (IOException e) {
-                        System.err.println("Erreur lors de la lecture de l'image à partir de l'URL : " + e.getMessage());
+                        System.err.println("Error reading image from URL: " + e.getMessage());
                     }
                     if (previewImage !=null) {
                         JLabel label = new JLabel(new ImageIcon(previewImage));

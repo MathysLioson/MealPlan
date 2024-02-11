@@ -29,7 +29,7 @@
             // Cast des colonnes au type qui nous intéresse
             Dataset<Row> selectedColumns = getRowDataset(dataset);
 
-            System.out.println("Nombre de lignes avant clean: " + selectedColumns.count());
+            System.out.println("Number of lines before clean: " + selectedColumns.count());
 
 
             selectedColumns = CleanDataset(selectedColumns);
@@ -37,12 +37,12 @@
             // Filtrage des données globales
             Dataset<Row> filteredDataset = getFilteredDataset(selectedColumns);
 
-            System.out.println("Nombre de lignes après le filtre globale: " + filteredDataset.count());
+            System.out.println("Number of lines after the global filter: " + filteredDataset.count());
 
             // filtrage des données en fonction du régime alimentaire
             filteredDataset = getRowDataset(DIETCHOICE, filteredDataset);
 
-            System.out.println("Nombre de lignes après filtre du règime: " + filteredDataset.count());
+            System.out.println("Number of lines after plan filter: " + filteredDataset.count());
 
             // Création de l'objet MealGenerator
             MealGenerator mealGenerator = new MealGenerator(filteredDataset, DIETCHOICE);
@@ -51,15 +51,14 @@
             List<Meal> dinnerMeals = new ArrayList<>();
             // Génération des repas
             // affichage des repas pour 7 jours
-
-            System.out.println("Génération des repas pour 7 jours...");
+            System.out.println("Generation of meals for 7 days...");
             for (int i = 0; i < 7; i++) {
                 mealGenerator.generateDailyMeals();
                 System.out.println("#############################################");
-                System.out.println("Jour " + (i + 1));
-                System.out.println("Petit-déjeuner : " + mealGenerator.getTodayBreakfast());
-                System.out.println("Déjeuner : " + mealGenerator.getTodayLunch());
-                System.out.println("Dîner : " + mealGenerator.getTodayDinner());
+                System.out.println("Day " + (i + 1));
+                System.out.println("Breakfast " + mealGenerator.getTodayBreakfast());
+                System.out.println("Lunch " + mealGenerator.getTodayLunch());
+                System.out.println("Dinner : " + mealGenerator.getTodayDinner());
                 System.out.println("#############################################");
                 System.out.println();
 
@@ -80,11 +79,11 @@
             }
 
             // enregistrement dans le datawarehouse
-            System.out.println("Enregistrement des repas dans le datawarehouse...");
+            System.out.println("Recording of meals in the datawarehouse...");
             saveMealsInDataWarehouse(breakfastMeals, lunchMeals, dinnerMeals, DIETCHOICE);
 
 
-            System.out.println("Veuiilez patienter, affichage des repas dans une fenêtre graphique...");
+            System.out.println("Please wait, displaying meals in a graphic window...");
             // afficher le resultat dans une fenetre graphique
             SwingUtilities.invokeLater(() -> {
                 MealGUI gui = new MealGUI(breakfastMeals, lunchMeals, dinnerMeals, DIETCHOICE);
@@ -96,7 +95,7 @@
 
         private static void saveMealsInDataWarehouse(List<Meal> breakfastMeals, List<Meal> lunchMeals, List<Meal> dinnerMeals, String DIETCHOICE) {
             // enregistrement des repas dans un fichier CSV
-            System.out.println("Enregistrement des repas dans un fichier CSV...");
+            System.out.println("Recording of meals in the datawarehouse...");
             MealDataWarehouse mealDataWarehouse = new MealDataWarehouse();
             mealDataWarehouse.saveMealsInCSV(breakfastMeals, "breakfast", DIETCHOICE);
             mealDataWarehouse.saveMealsInCSV(lunchMeals, "lunch", DIETCHOICE);
@@ -109,18 +108,13 @@
             switch (DietChoice){
                 case "Vegetarian":
                     // vegetarian balanced diet
-                    filteredDataset = filteredDataset.filter(
-                            col("product_name").isNotNull()
-                                    .and(col("ingredients_analysis_tags").rlike("(?<=,|^)en:vegetarian(?=,|$)")));
+                    filteredDataset = filteredDataset.filter(col("ingredients_analysis_tags").rlike("(?<=,|^)en:vegetarian(?=,|$)"));
                 case "Mediterranean":
                     // mediterranean balanced diet
                     break;
                 case "Gluten-free":
                     // gluten-free balanced diet
-                    filteredDataset = filteredDataset.filter(
-                            col("product_name").isNotNull()
-                                    .and(col("ingredients_analysis_tags").ilike("%gluten-free%"))
-                    );
+                    filteredDataset = filteredDataset.filter(col("ingredients_analysis_tags").rlike("^(?!.*en:gluten).*$"));
                     break;
                 case "Ketogenic":
                     // ketogenic balanced diet
@@ -128,7 +122,6 @@
                 case "DASH":
                     // DASH balanced diet
                     break;
-
             }
             return filteredDataset;
         }
@@ -218,49 +211,20 @@
         }
 
         private static String getDiet() {
-            switch (userChoice()){
-                case 1 :
-                    DIETCHOICE = "Vegetarian";
-                    break;
-                case 2 :
-                    DIETCHOICE = "Mediterranean";
-                    break;
-                case 3 :
-                    DIETCHOICE = "Gluten-free";
-                    break;
-                case 4 :
-                    DIETCHOICE = "Ketogenic";
-                    break;
-                case 5 :
-                    DIETCHOICE = "DASH";
-                    break;
-                case 6 :
-                    DIETCHOICE = "Balanced";
-                    break;
-                case 7 :
-                    DIETCHOICE = "Exit";
-                    break;
-                default :
-                    DIETCHOICE = "Invalid choice";
-                    break;
+            // création d'une fenêtre pour choisir le régime alimentaire
+            UserChoiceGUI userChoiceGUI = new UserChoiceGUI();
 
+            while (userChoiceGUI.getDIETCHOICE() == null) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            DIETCHOICE = userChoiceGUI.getDIETCHOICE();
+            System.out.println("Diet choice: " + userChoiceGUI.getDIETCHOICE());
+            System.out.println("Loading data...");
             return DIETCHOICE;
-        }
-
-        private static int userChoice() {
-            Scanner sc = new Scanner(System.in);
-            int choice = 0;
-            System.out.println("Please choose your diet: ");
-            System.out.println("1. Vegetarian");
-            System.out.println("2. Mediterranean");
-            System.out.println("3. Gluten-free");
-            System.out.println("4. Ketogenic");
-            System.out.println("5. DASH");
-            System.out.println("6. Balanced");
-            System.out.println("7. Exit");
-            choice = sc.nextInt();
-            return choice;
         }
 
 

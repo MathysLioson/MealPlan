@@ -80,38 +80,37 @@ public class MealGenerator {
                 MAX_CARBOHYDRATES = 300;
                 MAX_SUGARS = 90;
                 MAX_SALT = 6;
-//                setMinToBeReach();
+                setMinToBeReach();
                 break;
             case "Mediterranean":
-                MAX_ENERGY_KCAL = 2200; // Environ 2200 kcal par jour pour un adulte moyen
-                MAX_FAT = 70; // Environ 70 grammes de matières grasses par jour
-                MAX_SATURATED_FAT = 20; // Moins de 20 grammes de graisses saturées par jour
-                MAX_CARBOHYDRATES = 250; // Environ 250 grammes de glucides par jour
-                MAX_SUGARS = 50; // Moins de 50 grammes de sucres ajoutés par jour
-                MAX_SALT = 5; // Moins de 5 grammes de sel par jour
-                MAX_VITAMIN_A = 900; // Environ 900 microgrammes (µg) de rétinol équivalents (RE) par jour pour les hommes adultes et environ 700 µg RE par jour pour les femmes adultes
-                MAX_VITAMIN_C = 90; // Environ 90 milligrammes (mg) par jour pour les hommes adultes et environ 75 mg par jour pour les femmes adultes
-                MAX_CALCIUM = 1000; // Environ 1000 milligrammes (mg) par jour pour les adultes
-                MAX_IRON = 8; // Environ 8 milligrammes (mg) par jour pour les hommes adultes et environ 18 mg par jour pour les femmes adultes (en période d'âge de procréation)
-
+                MAX_ENERGY_KCAL = 2200;
+                MAX_FAT = 70;
+                MAX_SATURATED_FAT = 20;
+                MAX_CARBOHYDRATES = 250;
+                MAX_SUGARS = 50;
+                MAX_SALT = 5;
+                MAX_VITAMIN_A = 900;
+                MAX_VITAMIN_C = 90;
+                MAX_CALCIUM = 1000;
+                MAX_IRON = 8;
                 setMinToBeReach();
                 break;
             case "Gluten-free":
                 MAX_ENERGY_KCAL = 2200;
                 MAX_FAT = 60;
                 MAX_SATURATED_FAT = 15;
-                MAX_CARBOHYDRATES = 300; // Peut être riche en glucides selon les substituts de gluten utilisés
+                MAX_CARBOHYDRATES = 300;
                 MAX_SUGARS = 90;
                 MAX_SALT = 6;
                 setMinToBeReach();
                 break;
             case "Ketogenic":
-                MAX_ENERGY_KCAL = 1800; // Réduit en raison de la restriction sévère en glucides
-                MAX_FAT = 100; // Riche en graisses
-                MAX_SATURATED_FAT = 30; // Limite strictement les graisses saturées
-                MAX_CARBOHYDRATES = 50; // Très faible en glucides
-                MAX_SUGARS = 30; // Limite strictement les sucres
-                MAX_SALT = 2; // Limite strictement le sel
+                MAX_ENERGY_KCAL = 1800;
+                MAX_FAT = 100;
+                MAX_SATURATED_FAT = 30;
+                MAX_CARBOHYDRATES = 50;
+                MAX_SUGARS = 30;
+                MAX_SALT = 2;
                 setMinToBeReach();
                 break;
             case "DASH":
@@ -139,7 +138,7 @@ public class MealGenerator {
         }
         resetActualNutri();
     }
-
+    // Réinitialise les valeurs nutritionnelles actuelles
     private void resetActualNutri() {
         actualEnergyKcal = 0;
         actualFat = 0;
@@ -153,14 +152,12 @@ public class MealGenerator {
         actualIron = 0;
     }
 
-
+    // Définit les valeurs minimales à atteindre pour chaque nutriment en fonction des valeurs maximales
     private void setMinToBeReach() {
         MIN_ENERGY_KCAl_TO_REACH = MAX_ENERGY_KCAL/4;
         MIN_FAT_TO_REACH = MAX_FAT/4;
         MIN_SATURATED_FAT_TO_REACH = MAX_SATURATED_FAT/4;
-        MIN_CARBOHYDRATES_TO_REACH = MAX_CARBOHYDRATES/4;
         MIN_SUGARS_TO_REACH = MAX_SUGARS/4;
-        MIN_SALT_TO_REACH = MAX_SALT/4;
     }
 
     // Génère un repas pour un moment donné de la journée (petit-déjeuner, déjeuner, dîner)
@@ -195,7 +192,7 @@ public class MealGenerator {
             return meal;
         }
         else {
-            System.out.println("Aucun repas ne respecte les limites nutritionnelles");
+            System.out.println("No meals meet nutritional limits");
             return null;
         }
     }

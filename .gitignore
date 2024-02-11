@@ -40,3 +40,6 @@ build/
 !/src/main/resources/products.csv
 /src/main/resources/products.csv
 !/src/main/resources/datawarehouse/
+/src/main/resources/datawarehouse/mealPlan_breakfast_Vegetarian.csv
+/src/main/resources/datawarehouse/mealPlan_dinner_Vegetarian.csv
+/src/main/resources/datawarehouse/mealPlan_lunch_Vegetarian.csv

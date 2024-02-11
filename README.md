@@ -40,6 +40,4 @@ MealPlan est une application Java utilisant Apache Spark pour générer des repa
 ## Auteurs
 
 - **Mathys LIOSON**
-- **Samuel SICARD**
-- ** 
 

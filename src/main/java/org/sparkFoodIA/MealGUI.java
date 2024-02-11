@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -49,14 +48,20 @@ public class MealGUI extends JFrame {
                 JButton button = new JButton(meal.getMealName());
                 button.addActionListener(e -> displayMealDetails(meal));
                 panel.add(button);
-                if (meal.getImageUrl() != null) {
+                if (meal.getImageUrl() != null && meal.getImageUrl().startsWith("http")) {
+                    BufferedImage previewImage = null;
                     try {
-                        BufferedImage previewImage = ImageIO.read(new URL(meal.getImageUrl()));
+                        previewImage = ImageIO.read(new URL(meal.getImageUrl()));
+                    } catch (IOException e) {
+                        System.err.println("Erreur lors de la lecture de l'image à partir de l'URL : " + e.getMessage());
+                    }
+                    if (previewImage !=null) {
                         JLabel label = new JLabel(new ImageIcon(previewImage));
                         panel.add(label);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                }
+                    } else {
+                        // Ajouter un espace vide si l'image n'est pas disponible
+                        panel.add(new JLabel());
+                    }
 
                 } else {
                     // Ajouter un espace vide si aucune image n'est disponible

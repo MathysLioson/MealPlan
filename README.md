@@ -19,7 +19,7 @@ MealPlan est une application Java utilisant Apache Spark pour générer des repa
 
 1. Clonez ce dépôt GitHub : `git clone https://github.com/MathysLioson/MealPlan.git`
 2. Compilez le projet à l'aide de Maven : `mvn clean package`
-3. Exécutez l'application : `java -jar target/foodIA-1.0-SNAPSHOT.jar`
+3. Exécutez l'application : `java -jar target/foodIA-1.0-SNAPSHOT.jar`q
 
 ## Utilisation
 
@@ -30,4 +30,6 @@ MealPlan est une application Java utilisant Apache Spark pour générer des repa
 ## Auteurs
 
 - **Mathys LIOSON**
+- **Samuel SICARD**
+- ** 
 

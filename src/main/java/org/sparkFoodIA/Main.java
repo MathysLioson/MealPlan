@@ -1,12 +1,10 @@
     package org.sparkFoodIA;
 
-    import org.apache.spark.api.java.JavaSparkContext;
     import org.apache.spark.sql.Dataset;
     import org.apache.spark.sql.Row;
     import org.apache.spark.sql.SparkSession;
 
     import javax.swing.*;
-    import java.awt.*;
     import java.util.*;
     import java.util.List;
 
@@ -25,9 +23,6 @@
             sparkSession.conf().set("spark.sql.debug.maxToStringFields", 10000); // Remplacez 100 par le nombre souhaité de champs à afficher
             sparkSession.sparkContext().setLogLevel("ERROR");
 
-            // Récupération du contexte Spark
-            JavaSparkContext sparkContext = new JavaSparkContext(sparkSession.sparkContext());
-
             // chargement du fichier CSV
             Dataset<Row> dataset = getRowDataset(sparkSession);
 
@@ -40,6 +35,8 @@
 
             // Filtrage des données
             Dataset<Row> filteredDataset = getFilteredDataset(selectedColumns);
+
+
 
             // filter data based on the diet choice
             filteredDataset = getRowDataset(DIETCHOICE, filteredDataset);
@@ -66,9 +63,17 @@
                 breakfastMeals.add(mealGenerator.getTodayBreakfast());
                 lunchMeals.add(mealGenerator.getTodayLunch());
                 dinnerMeals.add(mealGenerator.getTodayDinner());
-                mealGenerator.getTodayLunch().setDayIndex(i);
-                mealGenerator.getTodayDinner().setDayIndex(i);
-                mealGenerator.getTodayBreakfast().setDayIndex(i);
+                if(mealGenerator.getTodayLunch() != null) {
+                    mealGenerator.getTodayLunch().setDayIndex(i);
+
+                }
+                if (mealGenerator.getTodayDinner() != null) {
+                    mealGenerator.getTodayDinner().setDayIndex(i);
+                }
+                if (mealGenerator.getTodayBreakfast() != null) {
+                    mealGenerator.getTodayBreakfast().setDayIndex(i);
+                }
+
             }
             // afficher le resultat dans une fenetre graphique
             SwingUtilities.invokeLater(() -> {
@@ -86,9 +91,7 @@
                     // vegetarian balanced diet
                     filteredDataset = filteredDataset.filter(
                             col("product_name").isNotNull()
-                                    .and(col("ingredients_analysis_tags").ilike("%vegetarian%")
-                                            .or(col("ingredients_analysis_tags").ilike("%vegan%"))));
-                    break;
+                                    .and(col("ingredients_analysis_tags").rlike("(?<=,|^)en:vegetarian(?=,|$)")));
                 case "Mediterranean":
                     // mediterranean balanced diet
                     break;

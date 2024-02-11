@@ -15,11 +15,25 @@ MealPlan est une application Java utilisant Apache Spark pour générer des repa
 - Apache Spark
 - Maven
 
-## Installation
 
-1. Clonez ce dépôt GitHub : `git clone https://github.com/MathysLioson/MealPlan.git`
-2. Compilez le projet à l'aide de Maven : `mvn clean package`
-3. Exécutez l'application : `java -jar target/foodIA-1.0-SNAPSHOT.jar`q
+## Comment exécuter l'application
+
+Avant de lancer l'application, assurez-vous d'avoir suivi ces étapes de configuration préalable :
+
+1. **Installation de Spark** : Assurez-vous que Spark est installé sur votre machine. Si ce n'est pas le cas, vous pouvez le télécharger à partir du site officiel de Spark : [Apache Spark Downloads](https://spark.apache.org/downloads.html).
+
+2. **Configuration de SPARK_HOME** : Configurez la variable d'environnement `SPARK_HOME` pour pointer vers le répertoire d'installation de Spark.
+
+Une fois que vous avez configuré l'environnement, suivez ces étapes pour exécuter l'application :
+
+1. **Construction de l'application** : Exécutez la commande suivante à la racine du projet pour construire l'application avec Maven :
+   ```shell
+   mvn clean package
+    ```
+2. **Exécution de l'application** : Exécutez la commande suivante pour lancer l'application :
+    ```shell
+   spark-submit --class org.sparkFoodIA.Main --master "local[*]" .\target\foodIA-1.0-SNAPSHOT.jar
+   ```
 
 ## Utilisation
 

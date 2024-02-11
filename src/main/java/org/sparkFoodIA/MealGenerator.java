@@ -83,14 +83,17 @@ public class MealGenerator {
 //                setMinToBeReach();
                 break;
             case "Mediterranean":
-                MAX_ENERGY_KCAL = 2500;
-                MAX_FAT = 70;
-                MAX_SATURATED_FAT = 20;
-                MAX_CARBOHYDRATES = 300;
-                MAX_SUGARS = 90;
-                MAX_SALT = 6;
-                MAX_VITAMIN_C = 90; // Niveau élevé en vitamine C
-                MAX_CALCIUM = 1000; // Niveau élevé en calcium
+                MAX_ENERGY_KCAL = 2200; // Environ 2200 kcal par jour pour un adulte moyen
+                MAX_FAT = 70; // Environ 70 grammes de matières grasses par jour
+                MAX_SATURATED_FAT = 20; // Moins de 20 grammes de graisses saturées par jour
+                MAX_CARBOHYDRATES = 250; // Environ 250 grammes de glucides par jour
+                MAX_SUGARS = 50; // Moins de 50 grammes de sucres ajoutés par jour
+                MAX_SALT = 5; // Moins de 5 grammes de sel par jour
+                MAX_VITAMIN_A = 900; // Environ 900 microgrammes (µg) de rétinol équivalents (RE) par jour pour les hommes adultes et environ 700 µg RE par jour pour les femmes adultes
+                MAX_VITAMIN_C = 90; // Environ 90 milligrammes (mg) par jour pour les hommes adultes et environ 75 mg par jour pour les femmes adultes
+                MAX_CALCIUM = 1000; // Environ 1000 milligrammes (mg) par jour pour les adultes
+                MAX_IRON = 8; // Environ 8 milligrammes (mg) par jour pour les hommes adultes et environ 18 mg par jour pour les femmes adultes (en période d'âge de procréation)
+
                 setMinToBeReach();
                 break;
             case "Gluten-free":

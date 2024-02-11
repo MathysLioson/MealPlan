@@ -30,6 +30,8 @@
             Dataset<Row> selectedColumns = getRowDataset(dataset);
 
             System.out.println("Nombre de lignes avant clean: " + selectedColumns.count());
+
+
             selectedColumns = CleanDataset(selectedColumns);
 
             // Filtrage des données globales

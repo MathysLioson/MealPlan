@@ -15,12 +15,12 @@
         private static String DIETCHOICE;
         public static void main(String[] args) {
 
-            // Récupération du choix de l'utilisateur
+            // Récupération du choix de l'utilisateur pour le régime alimentaire
             DIETCHOICE = getDiet();
 
             // Création de la session Spark
             SparkSession sparkSession = getSparkSession();
-            sparkSession.conf().set("spark.sql.debug.maxToStringFields", 10000); // Remplacez 100 par le nombre souhaité de champs à afficher
+            sparkSession.conf().set("spark.sql.debug.maxToStringFields", 10000);
             sparkSession.sparkContext().setLogLevel("ERROR");
 
             // chargement du fichier CSV
@@ -32,16 +32,15 @@
             System.out.println("Nombre de lignes avant clean: " + selectedColumns.count());
             selectedColumns = CleanDataset(selectedColumns);
 
-
-            // Filtrage des données
+            // Filtrage des données globales
             Dataset<Row> filteredDataset = getFilteredDataset(selectedColumns);
 
+            System.out.println("Nombre de lignes après le filtre globale: " + filteredDataset.count());
 
-
-            // filter data based on the diet choice
+            // filtrage des données en fonction du régime alimentaire
             filteredDataset = getRowDataset(DIETCHOICE, filteredDataset);
 
-            System.out.println("Nombre de lignes après filtre: " + filteredDataset.count());
+            System.out.println("Nombre de lignes après filtre du règime: " + filteredDataset.count());
 
             // Création de l'objet MealGenerator
             MealGenerator mealGenerator = new MealGenerator(filteredDataset, DIETCHOICE);
@@ -50,6 +49,8 @@
             List<Meal> dinnerMeals = new ArrayList<>();
             // Génération des repas
             // affichage des repas pour 7 jours
+
+            System.out.println("Génération des repas pour 7 jours...");
             for (int i = 0; i < 7; i++) {
                 mealGenerator.generateDailyMeals();
                 System.out.println("#############################################");
@@ -75,12 +76,29 @@
                 }
 
             }
+
+            // enregistrement dans le datawarehouse
+            System.out.println("Enregistrement des repas dans le datawarehouse...");
+            saveMealsInDataWarehouse(breakfastMeals, lunchMeals, dinnerMeals, DIETCHOICE);
+
+
+            System.out.println("Veuiilez patienter, affichage des repas dans une fenêtre graphique...");
             // afficher le resultat dans une fenetre graphique
             SwingUtilities.invokeLater(() -> {
-                MealGUI gui = new MealGUI(breakfastMeals, lunchMeals, dinnerMeals);
+                MealGUI gui = new MealGUI(breakfastMeals, lunchMeals, dinnerMeals, DIETCHOICE);
                 gui.setVisible(true);
             });
 
+
+        }
+
+        private static void saveMealsInDataWarehouse(List<Meal> breakfastMeals, List<Meal> lunchMeals, List<Meal> dinnerMeals, String DIETCHOICE) {
+            // enregistrement des repas dans un fichier CSV
+            System.out.println("Enregistrement des repas dans un fichier CSV...");
+            MealDataWarehouse mealDataWarehouse = new MealDataWarehouse();
+            mealDataWarehouse.saveMealsInCSV(breakfastMeals, "breakfast", DIETCHOICE);
+            mealDataWarehouse.saveMealsInCSV(lunchMeals, "lunch", DIETCHOICE);
+            mealDataWarehouse.saveMealsInCSV(dinnerMeals, "dinner", DIETCHOICE);
 
         }
 

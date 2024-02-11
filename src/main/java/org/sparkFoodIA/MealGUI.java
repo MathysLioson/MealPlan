@@ -10,9 +10,9 @@ import java.util.List;
 
 public class MealGUI extends JFrame {
 
-    public MealGUI(List<Meal> breakfastMeals, List<Meal> lunchMeals, List<Meal> dinnerMeals) {
+    public MealGUI(List<Meal> breakfastMeals, List<Meal> lunchMeals, List<Meal> dinnerMeals, String DietChoice) {
         setTitle("Weekly Meal Plan");
-        setSize(800, 600);
+        setSize(1200, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -27,6 +27,9 @@ public class MealGUI extends JFrame {
         tabbedPane.addTab("Saturday", createDailyPanel(breakfastMeals, lunchMeals, dinnerMeals, 5));
         tabbedPane.addTab("Sunday", createDailyPanel(breakfastMeals, lunchMeals, dinnerMeals, 6));
 
+        // ajouter l'affichage du nom du regime
+        JLabel dietLabel = new JLabel("Diet: " + DietChoice);
+        mainPanel.add(dietLabel, BorderLayout.NORTH);
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
         getContentPane().add(mainPanel);
     }

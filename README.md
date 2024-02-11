@@ -11,9 +11,9 @@ MealPlan est une application Java utilisant Apache Spark pour générer des repa
 
 ## Configuration requise
 
-- Java JDK 8 ou supérieur
-- Apache Spark
-- Maven
+- Java JDK 11
+- Apache Spark 2.13 - 3
+- Maven 3.9.5
 
 
 ## Comment exécuter l'application
@@ -46,7 +46,7 @@ Une fois que vous avez configuré l'environnement, suivez ces étapes pour exéc
 1. Liste des repas pour chaque jour de la semaine
 ![image](https://github.com/MathysLioson/MealPlan/assets/77407012/2502e50c-f984-4002-b733-6bbe2afea805)
 
-2. Caractèristiques des aliments
+2. Les caractéristiques nutritionnelles des aliments
 
 ![image](https://github.com/MathysLioson/MealPlan/assets/77407012/1e1c5e26-adfc-44b4-bab8-455f717ce3ca)
 

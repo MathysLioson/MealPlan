@@ -24,7 +24,9 @@ Avant de lancer l'application, assurez-vous d'avoir suivi ces étapes de configu
 
 2. **Configuration de SPARK_HOME** : Configurez la variable d'environnement `SPARK_HOME` pour pointer vers le répertoire d'installation de Spark.
 
-Une fois que vous avez configuré l'environnement, suivez ces étapes pour exécuter l'application :
+3. **Ajout du fichier de données** : Ajoutez le fichier de données `products.csv` dans le dossier ressource du projet. Vous pouvez télécharger le fichier à partir de ce lien : [products.csv](https://www.kaggle.com/openfoodfacts/world-food-facts).
+
+   Une fois que vous avez configuré l'environnement, suivez ces étapes pour exécuter l'application :
 
 1. **Construction de l'application** : Exécutez la commande suivante à la racine du projet pour construire l'application avec Maven :
    ```shell

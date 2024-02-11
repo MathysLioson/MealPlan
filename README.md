@@ -46,11 +46,16 @@ Avant de lancer l'application, assurez-vous d'avoir suivi ces étapes de configu
 ## Preview
 
 1. Liste des repas pour chaque jour de la semaine
+
 ![image](https://github.com/MathysLioson/MealPlan/assets/77407012/2502e50c-f984-4002-b733-6bbe2afea805)
 
-2. Les caractéristiques nutritionnelles des aliments
+3. Les caractéristiques nutritionnelles des aliments
 
 ![image](https://github.com/MathysLioson/MealPlan/assets/77407012/1e1c5e26-adfc-44b4-bab8-455f717ce3ca)
+
+3. Choix du régime
+   
+![image](https://github.com/MathysLioson/MealPlan/assets/77407012/e419a5c4-900d-40cb-9920-fcc2c07e9055)
 
 
 ## Auteurs

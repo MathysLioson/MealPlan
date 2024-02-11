@@ -24,7 +24,7 @@ Avant de lancer l'application, assurez-vous d'avoir suivi ces étapes de configu
 
 2. **Configuration de SPARK_HOME** : Configurez la variable d'environnement `SPARK_HOME` pour pointer vers le répertoire d'installation de Spark.
 
-3. **Ajout du fichier de données** : Ajoutez le fichier de données `products.csv` dans le dossier ressource du projet. Vous pouvez télécharger le fichier à partir de ce lien : [products.csv](https://www.kaggle.com/openfoodfacts/world-food-facts).
+3. **Ajout du fichier de données** : Ajoutez le fichier de données `products.csv` dans le dossier ressource du projet. Vous pouvez télécharger le fichier à partir de ce lien : [products.csv](https://fr.openfoodfacts.org/data).
 
    Une fois que vous avez configuré l'environnement, suivez ces étapes pour exécuter l'application :
 
